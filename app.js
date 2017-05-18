@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var deepStream = require('deepstream.io-client-js');
 
 var bodyParser = require('body-parser');
 
@@ -16,9 +17,16 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 var router = express.Router();
-router.get('/getAlertMessages', function(req, res) {
+router.get('/getAlertMessages', function (req, res) {
     console.log(req.query);
     console.log(req.body);
+    var client = deepStream('wss://035.deepstreamhub.com?apiKey=74a08c64-7558-4adf-a71a-71e555580d1a').login();
+    var connection = client.record.getList("safety/alerts");
+    connection.subscribe(function (data) {
+    console.log(data);
+
+    });
+    console.log("list");
     res.send(JSON.stringify(["item1", "item2", "item3"]));
 });
 router.post("/writeAlertMessages", function (req, res) {

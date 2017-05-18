@@ -9,11 +9,10 @@
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
+    "deepstream.io-client-js": "^2.1.5",
     "express": "~4.14.1",
     "less-middleware": "~2.2.0",
     "morgan": "~1.7.0"
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }
