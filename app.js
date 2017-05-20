@@ -15,11 +15,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 var router = express.Router();
 router.get('/getAlertMessages', function (req, res) {
     var client = deepStream('wss://035.deepstreamhub.com?apiKey=74a08c64-7558-4adf-a71a-71e555580d1a').login();
     var connection = client.record.getList("safety/alerts");
+
     connection.subscribe(function (data) {
         console.log(data);
         res.send(JSON.stringify(data));
