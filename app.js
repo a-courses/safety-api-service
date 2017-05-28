@@ -38,7 +38,9 @@ router.get('/getAlertMessages', function (req, res) {
 });
 router.post("/writeAlertMessages", function (req, res) {
     req.setEncoding('utf8');
-    console.log(req.body.Type);
+    console.log("---------------------------------------");
+    console.log(req.body);
+    console.log("---------------------------------------");
     var alertMessages = {
         Type: "Notification",
         MessageId: "f9a037e9-389f-5eb2-8749-664dbad67398",
