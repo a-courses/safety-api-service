@@ -36,23 +36,17 @@ router.get('/getAlertMessages', function (req, res) {
         res.send(JSON.stringify(data));
     });
 });
+
 router.post("/writeAlertMessages", function (req, res) {
     req.setEncoding('utf8');
     console.log("---------------------------------------");
+    var requestType = req.get('Content-Type');
+    console.log(requestType);
+
+    req.body = JSON.parse(req.body);
     console.log(req.body);
+    console.log(req.body.Type === 'Notification');
     console.log("---------------------------------------");
-    var alertMessages =
-    {
-        "Type": "Notification",
-        "MessageId": "a9ff8a52-feff-5656-b21a-dbcd4aba3ffb",
-        "TopicArn": "arn:aws:sns:us-west-2:421971994929:FileAlertTopic",
-        "Message": "{\"id\":\"5dc7dbae-1228-4dc2-97aa-bd387b6abfbb\",\"caller\":{\"phoneNumber\":\"8800094877\",\"emailId\":\"manmohan_saini82@rediffmail.com\",\"userName\":\"msaini\"},\"callee\":{\"phoneNumber\":\"8800094877\",\"emailId\":\"manmohan_saini82@rediffmail.com\",\"userName\":\"msaini\"},\"location\":{\"latitude\":14.0,\"longitude\":12.0},\"status\":\"new\",\"mediaType\":\"jpeg\",\"incidentType\":\"Fire\",\"time\":\"2017/05/12 16:38:48\",\"incidentId\":\"12345\"}",
-        "Timestamp": "2017-05-24T16:17:09.732Z",
-        "SignatureVersion": "1",
-        "Signature": "KHdQr/jyyLZ6nt9p/BUTfIdfEpKXzQudBUHP9gbTbHD8euemE0UpfR70+GMHPzmybShynZf2ntY57ex4ZgrGi8nC7W5gyzbFJn/kHDrYEpJNgmtAufFrHFGjZRO+J0Ca7bAdrmWaZvDimbO9ZTrfMmYAO4R3EYBuXJuw8MVfi+yEx42pgLn1iUURiPTfP1TRHWUhSjquU91dhc/8UBRia/3bC+xMWOPS61GEbxHON8uxs6yQdiGbZE8hWO05HXegtnC/lzKJoon4LwKYZ7TL13+ukZGViR3ggzewc+ga4A/zMTxLMyJ73fN32uWsYy9cUYdtzNOkgRLYABRbp2MJhQ==",
-        "SigningCertURL": "https://sns.us-west-2.amazonaws.com/SimpleNotificationService-b95095beb82e8f6a046b3aafc7f4149a.pem",
-        "UnsubscribeURL": "https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:421971994929:FileAlertTopic:9118ae30-a6b0-4bc9-8c42-5c1d2796f421"
-    };
 
     if (req.body !== undefined && req.body.Type === 'Notification') {
         var messageBody = JSON.parse(req.body.Message);
@@ -61,54 +55,130 @@ router.post("/writeAlertMessages", function (req, res) {
         console.log("----------------------------------------------------------");
         var client = connectDeepStream();
         var recordList = client.record.getList("safety/alerts");
-        var name = 'alerts/' + client.getUid();
-        var newRecordName = client.record.getRecord(name);
-        newRecordName.set({
-            id: messageBody.id,
-            url: messageBody.url,
-            fileName: messageBody.fileName,
-            user: {
-                phoneNumber: messageBody.user.phoneNumber,
-                emailId: messageBody.user.emailId,
-                userName: messageBody.user.userName
-            },
-            location: {
-                latitude: messageBody.location.latitude,
-                longitude: messageBody.location.longitude
-            },
-            status: messageBody.status,
-            mediaType: messageBody.mediaType,
-            incidentType: messageBody.incidentType,
-            time: messageBody.time,
-            incidentId: messageBody.incidentId
-        });
-        recordList.addEntry(name);
-        console.log("--------[New record published to deepstream]--------");
-        res.send("success");
-    } else {
-        res.send("request is invalid");
+        if (messageBody.notificationType === 'upload' || messageBody.notificationType === 'stream') {
+            var name = 'alerts/' + client.getUid();
+            var newRecordName = client.record.getRecord(name);
+            console.log("----In create of " + messageBody.notificationType + "-------------: " + name);
+            newRecordName.set({
+                type: messageBody.notificationType,
+                id: messageBody.alert.id,
+                url: messageBody.alert.url,
+                fileName: messageBody.alert.fileName,
+                user: {
+                    phoneNumber: messageBody.alert.user.phoneNumber,
+                    emailId: messageBody.alert.user.emailId,
+                    userName: messageBody.alert.user.userName
+                },
+                location: {
+                    latitude: messageBody.alert.location.latitude,
+                    longitude: messageBody.alert.location.longitude
+                },
+                status: messageBody.alert.status,
+                mediaType: messageBody.alert.mediaType,
+                incidentType: messageBody.alert.incidentType,
+                time: messageBody.alert.time,
+                incidentId: messageBody.alert.incidentId
+            });
+            recordList.addEntry(name);
+            console.log("--------[New upload alert published to deepstream]--------");
+            res.send("SUCCESS : New '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+        }
+        if (messageBody.notificationType === 'call') {
+            var name = 'alerts/' + client.getUid();
+            var newRecordName = client.record.getRecord(name);
+            console.log("----In create of " + messageBody.notificationType + "-------------:" + name);
+            newRecordName.set({
+                type: messageBody.notificationType,
+                id: messageBody.alert.id,
+                caller: {
+                    phoneNumber: messageBody.alert.caller.phoneNumber,
+                    emailId: messageBody.alert.caller.emailId,
+                    userName: messageBody.alert.caller.userName
+                },
+                callee: {
+                    phoneNumber: messageBody.alert.callee.phoneNumber,
+                    emailId: messageBody.alert.callee.emailId,
+                    userName: messageBody.alert.callee.userName
+                },
+                location: {
+                    latitude: messageBody.alert.location.latitude,
+                    longitude: messageBody.alert.location.longitude
+                },
+                status: messageBody.alert.status,
+                mediaType: messageBody.alert.mediaType,
+                incidentType: messageBody.alert.incidentType,
+                time: messageBody.alert.time,
+                incidentId: messageBody.alert.incidentId
+            });
+            recordList.addEntry(name);
+            console.log("--------[New call alert published to deepstream]--------");
+            res.send("SUCCESS : New '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+        }
+        if (messageBody.notificationType === 'incident') {
+            console.log("----In create of " + messageBody.notificationType + "-------------");
+            var name = 'alerts/' + client.getUid();
+            var newRecordName = client.record.getRecord(name);
+            console.log("----In create of " + messageBody.notificationType + "-------------:" + name);
+            newRecordName.set({
+                notificationType: messageBody.notificationType,
+                alert: {
+                    id: messageBody.alert.id,
+                    time: messageBody.alert.time,
+                    name: messageBody.alert.name,
+                    parentAlert: [
+                        {
+                            id: messageBody.alert.parentAlert.id,
+                            caller: {
+                                phone: messageBody.alert.parentAlert.caller.phone,
+                                emailId: messageBody.alert.parentAlert.caller.emailId,
+                                userName: messageBody.alert.parentAlert.caller.userName
+                            },
+                            callee: {
+                                phone: messageBody.alert.parentAlert.callee.phone,
+                                emailId: messageBody.alert.parentAlert.callee.emailId,
+                                userName: messageBody.alert.parentAlert.callee.userName
+                            },
+                            location: {
+                                latitude: messageBody.alert.parentAlert.latitude,
+                                longitude: messageBody.alert.parentAlert.longitude
+                            },
+                            status: messageBody.alert.parentAlert.status,
+                            mediaType: messageBody.alert.parentAlert.mediaType,
+                            incidentType: messageBody.alert.parentAlert.incidentType,
+                            time: messageBody.alert.parentAlert.time,
+                            incidentId: messageBody.alert.parentAlert.incidentId
+                        }
+                    ],
+                    mappedAlerts: messageBody.alert.mappedAlerts,
+                    createdBy: messageBody.alert.createdBy,
+                    msadescription: messageBody.alert.msadescription,
+                    status: messageBody.alert.status,
+                    assignedTo: [
+                        {
+                            phone: messageBody.alert.assignedTo.phone,
+                            emailId: messageBody.alert.assignedTo.emailId,
+                            userName: messageBody.alert.assignedTo.userName
+                        }
+                    ],
+                    alertUsers: [
+                        {
+                            phone: messageBody.alert.alertUsers.phone,
+                            emailId: messageBody.alert.alertUsers.emailId,
+                            userName: messageBody.alert.alertUsers.userName
+                        }
+                    ]
+                }
+            });
+            recordList.addEntry(name);
+            console.log("--------[New incident published to deepstream]--------");
+            res.send("SUCCESS : New '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+        }
+    }
+    else {
+        console.log("request is invalid");
+        res.error("request is invalid");
     }
 });
 app.use('/api', router);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    console.log("-----------Error--------------");
-    console.log(err)
-    console.log("------------------------------");
-});
 
 module.exports = app;
