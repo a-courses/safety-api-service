@@ -127,12 +127,12 @@ router.post("/writeAlertMessages", function (req, res) {
                     var singleAlert = {
                         id: messageBody.alert.parentAlert[i].id,
                         caller: {
-                            phone: messageBody.alert.parentAlert[i].caller.phone,
+                            phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
                             emailId: messageBody.alert.parentAlert[i].caller.emailId,
                             userName: messageBody.alert.parentAlert[i].caller.userName
                         },
                         callee: {
-                            phone: messageBody.alert.parentAlert[i].callee.phoneNumber,
+                            phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
                             emailId: messageBody.alert.parentAlert[i].callee.emailId,
                             userName: messageBody.alert.parentAlert[i].callee.userName
                         },
@@ -148,12 +148,12 @@ router.post("/writeAlertMessages", function (req, res) {
                     var singleAlert = {
                         id: messageBody.alert.mappedAlerts[i].id,
                         caller: {
-                            phone: messageBody.alert.mappedAlerts[i].caller.phone,
+                            phoneNumber: messageBody.alert.mappedAlerts[i].caller.phoneNumber,
                             emailId: messageBody.alert.mappedAlerts[i].caller.emailId,
                             userName: messageBody.alert.mappedAlerts[i].caller.userName
                         },
                         callee: {
-                            phone: messageBody.alert.mappedAlerts[i].callee.phoneNumber,
+                            phoneNumber: messageBody.alert.mappedAlerts[i].callee.phoneNumber,
                             emailId: messageBody.alert.mappedAlerts[i].callee.emailId,
                             userName: messageBody.alert.mappedAlerts[i].callee.userName
                         },
@@ -168,7 +168,7 @@ router.post("/writeAlertMessages", function (req, res) {
 
                 for (var i in messageBody.alert.assignedTo) {
                     var assign = {
-                        phone: messageBody.alert.assignedTo[i].phone,
+                        phoneNumber: messageBody.alert.assignedTo[i].phoneNumber,
                         emailId: messageBody.alert.assignedTo[i].emailId,
                         userName: messageBody.alert.assignedTo[i].userName
                     };
@@ -179,7 +179,7 @@ router.post("/writeAlertMessages", function (req, res) {
 
                 for (var i in messageBody.alert.alertUsers) {
                     var user = {
-                        phone: messageBody.alert.alertUsers[i].phone,
+                        phoneNumber: messageBody.alert.alertUsers[i].phoneNumber,
                         emailId: messageBody.alert.alertUsers[i].emailId,
                         userName: messageBody.alert.alertUsers[i].userName
                     };
