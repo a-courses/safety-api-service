@@ -240,7 +240,7 @@ router.post("/updateAlertMessages", function (req, res) {
                     console.log("====================================================");
                     console.log(existingRecord.name);
                     console.log(existingRecord.get('incidentId') + "===" + messageBody.alert.incidentId);
-                    console.log("====================================================");
+                    console.log("-----------------------------------------------------");
                     if (existingRecord.get('incidentId') === messageBody.alert.incidentId) {
                         if (messageBody.notificationType === 'upload' || messageBody.notificationType === 'stream') {
                             console.log("----In update of " + messageBody.notificationType + "-------------");
