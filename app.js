@@ -115,98 +115,98 @@ router.post("/writeAlertMessages", function (req, res) {
                     console.log("--------[New call alert published to deepstream]--------");
                     res.send("SUCCESS : New '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
                 }
-                /*if (messageBody.notificationType === 'incident') {
-                 console.log("----In create of " + messageBody.notificationType + "-------------");
-                 var name = 'alerts/' + client.getUid();
-                 var newRecordName = client.record.getRecord(name);
-                 console.log("----In create of " + messageBody.notificationType + "-------------:" + name);
-                 var parentAlerts = [];
-                 var assignedToList = [];
-                 var alertUsersList = [];
-                 var mappedAlertList = [];
-                 for (var i in messageBody.alert.parentAlert) {
-                 var singleAlert = {
-                 id: messageBody.alert.parentAlert[i].id,
-                 caller: {
-                 phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                 emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                 userName: messageBody.alert.parentAlert[i].caller.userName
-                 },
-                 callee: {
-                 phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
-                 emailId: messageBody.alert.parentAlert[i].callee.emailId,
-                 userName: messageBody.alert.parentAlert[i].callee.userName
-                 },
-                 location: {
-                 latitude: messageBody.alert.parentAlert[i].location.latitude,
-                 longitude: messageBody.alert.parentAlert[i].location.longitude
-                 }
-                 };
-                 parentAlerts.push(singleAlert);
-                 }
-                 console.log(parentAlerts.length);
-                 for (var i in messageBody.alert.mappedAlerts) {
-                 var singleAlert = {
-                 id: messageBody.alert.mappedAlerts[i].id,
-                 caller: {
-                 phoneNumber: messageBody.alert.mappedAlerts[i].caller.phoneNumber,
-                 emailId: messageBody.alert.mappedAlerts[i].caller.emailId,
-                 userName: messageBody.alert.mappedAlerts[i].caller.userName
-                 },
-                 callee: {
-                 phoneNumber: messageBody.alert.mappedAlerts[i].callee.phoneNumber,
-                 emailId: messageBody.alert.mappedAlerts[i].callee.emailId,
-                 userName: messageBody.alert.mappedAlerts[i].callee.userName
-                 },
-                 location: {
-                 latitude: messageBody.alert.mappedAlerts[i].location.latitude,
-                 longitude: messageBody.alert.mappedAlerts[i].location.longitude
-                 }
-                 };
-                 mappedAlertList.push(singleAlert);
-                 }
-                 console.log(mappedAlertList.length);
+                if (messageBody.notificationType === 'incident') {
+                    console.log("----In create of " + messageBody.notificationType + "-------------");
+                    var name = 'alerts/' + client.getUid();
+                    var newRecordName = client.record.getRecord(name);
+                    console.log("----In create of " + messageBody.notificationType + "-------------:" + name);
+                    var parentAlerts = [];
+                    var assignedToList = [];
+                    var alertUsersList = [];
+                    var mappedAlertList = [];
+                    for (var i in messageBody.alert.parentAlert) {
+                        var singleAlert = {
+                            id: messageBody.alert.parentAlert[i].id,
+                            caller: {
+                                phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
+                                emailId: messageBody.alert.parentAlert[i].caller.emailId,
+                                userName: messageBody.alert.parentAlert[i].caller.userName
+                            },
+                            callee: {
+                                phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
+                                emailId: messageBody.alert.parentAlert[i].callee.emailId,
+                                userName: messageBody.alert.parentAlert[i].callee.userName
+                            },
+                            location: {
+                                latitude: messageBody.alert.parentAlert[i].location.latitude,
+                                longitude: messageBody.alert.parentAlert[i].location.longitude
+                            }
+                        };
+                        parentAlerts.push(singleAlert);
+                    }
+                    console.log(parentAlerts.length);
+                    for (var i in messageBody.alert.mappedAlerts) {
+                        var singleAlert = {
+                            id: messageBody.alert.mappedAlerts[i].id,
+                            caller: {
+                                phoneNumber: messageBody.alert.mappedAlerts[i].caller.phoneNumber,
+                                emailId: messageBody.alert.mappedAlerts[i].caller.emailId,
+                                userName: messageBody.alert.mappedAlerts[i].caller.userName
+                            },
+                            callee: {
+                                phoneNumber: messageBody.alert.mappedAlerts[i].callee.phoneNumber,
+                                emailId: messageBody.alert.mappedAlerts[i].callee.emailId,
+                                userName: messageBody.alert.mappedAlerts[i].callee.userName
+                            },
+                            location: {
+                                latitude: messageBody.alert.mappedAlerts[i].location.latitude,
+                                longitude: messageBody.alert.mappedAlerts[i].location.longitude
+                            }
+                        };
+                        mappedAlertList.push(singleAlert);
+                    }
+                    console.log(mappedAlertList.length);
 
-                 for (var i in messageBody.alert.assignedTo) {
-                 var assign = {
-                 phoneNumber: messageBody.alert.assignedTo[i].phoneNumber,
-                 emailId: messageBody.alert.assignedTo[i].emailId,
-                 userName: messageBody.alert.assignedTo[i].userName
-                 };
-                 assignedToList.push(assign);
-                 }
+                    for (var i in messageBody.alert.assignedTo) {
+                        var assign = {
+                            phoneNumber: messageBody.alert.assignedTo[i].phoneNumber,
+                            emailId: messageBody.alert.assignedTo[i].emailId,
+                            userName: messageBody.alert.assignedTo[i].userName
+                        };
+                        assignedToList.push(assign);
+                    }
 
-                 console.log(assignedToList.length);
+                    console.log(assignedToList.length);
 
-                 for (var i in messageBody.alert.alertUsers) {
-                 var user = {
-                 phoneNumber: messageBody.alert.alertUsers[i].phoneNumber,
-                 emailId: messageBody.alert.alertUsers[i].emailId,
-                 userName: messageBody.alert.alertUsers[i].userName
-                 };
-                 alertUsersList.push(user);
-                 }
-                 console.log(alertUsersList.length);
+                    for (var i in messageBody.alert.alertUsers) {
+                        var user = {
+                            phoneNumber: messageBody.alert.alertUsers[i].phoneNumber,
+                            emailId: messageBody.alert.alertUsers[i].emailId,
+                            userName: messageBody.alert.alertUsers[i].userName
+                        };
+                        alertUsersList.push(user);
+                    }
+                    console.log(alertUsersList.length);
 
-                 newRecordName.set({
-                 notificationType: messageBody.notificationType,
-                 alert: {
-                 id: messageBody.alert.id,
-                 time: messageBody.alert.time,
-                 name: messageBody.alert.name,
-                 parentAlert: parentAlerts,
-                 mappedAlerts: messageBody.alert.mappedAlerts,
-                 createdBy: messageBody.alert.createdBy,
-                 msadescription: messageBody.alert.msadescription,
-                 status: messageBody.alert.status,
-                 assignedTo: assignedToList,
-                 alertUsers: alertUsersList
-                 }
-                 });
-                 recordList.addEntry(name);
-                 console.log("--------[New incident published to deepstream]--------");
-                 res.send("SUCCESS : New '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
-                 }*/
+                    newRecordName.set({
+                        notificationType: messageBody.notificationType,
+                        alert: {
+                            id: messageBody.alert.id,
+                            time: messageBody.alert.time,
+                            name: messageBody.alert.name,
+                            parentAlert: parentAlerts,
+                            mappedAlerts: messageBody.alert.mappedAlerts,
+                            createdBy: messageBody.alert.createdBy,
+                            msadescription: messageBody.alert.msadescription,
+                            status: messageBody.alert.status,
+                            assignedTo: assignedToList,
+                            alertUsers: alertUsersList
+                        }
+                    });
+                    recordList.addEntry(name);
+                    console.log("--------[New incident published to deepstream]--------");
+                    res.send("SUCCESS : New '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+                }
             } else {
                 recordList.whenReady(function (recordList) {
                     var entries = recordList.getEntries();
@@ -272,94 +272,94 @@ router.post("/writeAlertMessages", function (req, res) {
                                     console.log("--------[updated CALL alert published to deepstream]--------");
                                     res.send("SUCCESS : updated '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
                                 }
-                                /*if (messageBody.notificationType === 'incident') {
-                                 console.log("----In update of " + messageBody.notificationType + "-------------")
-                                 var parentAlerts = [];
-                                 var assignedToList = [];
-                                 var alertUsersList = [];
-                                 var mappedAlertList = [];
-                                 for (var i in messageBody.alert.parentAlert) {
-                                 var singleAlert = {
-                                 id: messageBody.alert.parentAlert[i].id,
-                                 caller: {
-                                 phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                 emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                 userName: messageBody.alert.parentAlert[i].caller.userName
-                                 },
-                                 callee: {
-                                 phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
-                                 emailId: messageBody.alert.parentAlert[i].callee.emailId,
-                                 userName: messageBody.alert.parentAlert[i].callee.userName
-                                 },
-                                 location: {
-                                 latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                 longitude: messageBody.alert.parentAlert[i].location.longitude
-                                 }
-                                 };
-                                 parentAlerts.push(singleAlert);
-                                 }
-                                 console.log(parentAlerts.length);
-                                 for (var i in messageBody.alert.mappedAlerts) {
-                                 var singleAlert = {
-                                 id: messageBody.alert.mappedAlerts[i].id,
-                                 caller: {
-                                 phoneNumber: messageBody.alert.mappedAlerts[i].caller.phoneNumber,
-                                 emailId: messageBody.alert.mappedAlerts[i].caller.emailId,
-                                 userName: messageBody.alert.mappedAlerts[i].caller.userName
-                                 },
-                                 callee: {
-                                 phoneNumber: messageBody.alert.mappedAlerts[i].callee.phoneNumber,
-                                 emailId: messageBody.alert.mappedAlerts[i].callee.emailId,
-                                 userName: messageBody.alert.mappedAlerts[i].callee.userName
-                                 },
-                                 location: {
-                                 latitude: messageBody.alert.mappedAlerts[i].location.latitude,
-                                 longitude: messageBody.alert.mappedAlerts[i].location.longitude
-                                 }
-                                 };
-                                 mappedAlertList.push(singleAlert);
-                                 }
-                                 console.log(mappedAlertList.length);
+                                if (messageBody.notificationType === 'incident') {
+                                    console.log("----In update of " + messageBody.notificationType + "-------------")
+                                    var parentAlerts = [];
+                                    var assignedToList = [];
+                                    var alertUsersList = [];
+                                    var mappedAlertList = [];
+                                    for (var i in messageBody.alert.parentAlert) {
+                                        var singleAlert = {
+                                            id: messageBody.alert.parentAlert[i].id,
+                                            caller: {
+                                                phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
+                                                emailId: messageBody.alert.parentAlert[i].caller.emailId,
+                                                userName: messageBody.alert.parentAlert[i].caller.userName
+                                            },
+                                            callee: {
+                                                phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
+                                                emailId: messageBody.alert.parentAlert[i].callee.emailId,
+                                                userName: messageBody.alert.parentAlert[i].callee.userName
+                                            },
+                                            location: {
+                                                latitude: messageBody.alert.parentAlert[i].location.latitude,
+                                                longitude: messageBody.alert.parentAlert[i].location.longitude
+                                            }
+                                        };
+                                        parentAlerts.push(singleAlert);
+                                    }
+                                    console.log(parentAlerts.length);
+                                    for (var i in messageBody.alert.mappedAlerts) {
+                                        var singleAlert = {
+                                            id: messageBody.alert.mappedAlerts[i].id,
+                                            caller: {
+                                                phoneNumber: messageBody.alert.mappedAlerts[i].caller.phoneNumber,
+                                                emailId: messageBody.alert.mappedAlerts[i].caller.emailId,
+                                                userName: messageBody.alert.mappedAlerts[i].caller.userName
+                                            },
+                                            callee: {
+                                                phoneNumber: messageBody.alert.mappedAlerts[i].callee.phoneNumber,
+                                                emailId: messageBody.alert.mappedAlerts[i].callee.emailId,
+                                                userName: messageBody.alert.mappedAlerts[i].callee.userName
+                                            },
+                                            location: {
+                                                latitude: messageBody.alert.mappedAlerts[i].location.latitude,
+                                                longitude: messageBody.alert.mappedAlerts[i].location.longitude
+                                            }
+                                        };
+                                        mappedAlertList.push(singleAlert);
+                                    }
+                                    console.log(mappedAlertList.length);
 
-                                 for (var i in messageBody.alert.assignedTo) {
-                                 var assign = {
-                                 phoneNumber: messageBody.alert.assignedTo[i].phoneNumber,
-                                 emailId: messageBody.alert.assignedTo[i].emailId,
-                                 userName: messageBody.alert.assignedTo[i].userName
-                                 };
-                                 assignedToList.push(assign);
-                                 }
+                                    for (var i in messageBody.alert.assignedTo) {
+                                        var assign = {
+                                            phoneNumber: messageBody.alert.assignedTo[i].phoneNumber,
+                                            emailId: messageBody.alert.assignedTo[i].emailId,
+                                            userName: messageBody.alert.assignedTo[i].userName
+                                        };
+                                        assignedToList.push(assign);
+                                    }
 
-                                 console.log(assignedToList.length);
+                                    console.log(assignedToList.length);
 
-                                 for (var i in messageBody.alert.alertUsers) {
-                                 var user = {
-                                 phoneNumber: messageBody.alert.alertUsers[i].phoneNumber,
-                                 emailId: messageBody.alert.alertUsers[i].emailId,
-                                 userName: messageBody.alert.alertUsers[i].userName
-                                 };
-                                 alertUsersList.push(user);
-                                 }
-                                 console.log(alertUsersList.length);
+                                    for (var i in messageBody.alert.alertUsers) {
+                                        var user = {
+                                            phoneNumber: messageBody.alert.alertUsers[i].phoneNumber,
+                                            emailId: messageBody.alert.alertUsers[i].emailId,
+                                            userName: messageBody.alert.alertUsers[i].userName
+                                        };
+                                        alertUsersList.push(user);
+                                    }
+                                    console.log(alertUsersList.length);
 
-                                 existingRecord.set({
-                                 notificationType: messageBody.notificationType,
-                                 alert: {
-                                 id: messageBody.alert.id,
-                                 time: messageBody.alert.time,
-                                 name: messageBody.alert.name,
-                                 parentAlert: parentAlerts,
-                                 mappedAlerts: messageBody.alert.mappedAlerts,
-                                 createdBy: messageBody.alert.createdBy,
-                                 msadescription: messageBody.alert.msadescription,
-                                 status: messageBody.alert.status,
-                                 assignedTo: assignedToList,
-                                 alertUsers: alertUsersList
-                                 }
-                                 });
-                                 console.log("--------[Incident updated to deepstream]--------");
-                                 res.send("SUCCESS : updated '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
-                                 }*/
+                                    existingRecord.set({
+                                        notificationType: messageBody.notificationType,
+                                        alert: {
+                                            id: messageBody.alert.id,
+                                            time: messageBody.alert.time,
+                                            name: messageBody.alert.name,
+                                            parentAlert: parentAlerts,
+                                            mappedAlerts: messageBody.alert.mappedAlerts,
+                                            createdBy: messageBody.alert.createdBy,
+                                            msadescription: messageBody.alert.msadescription,
+                                            status: messageBody.alert.status,
+                                            assignedTo: assignedToList,
+                                            alertUsers: alertUsersList
+                                        }
+                                    });
+                                    console.log("--------[Incident updated to deepstream]--------");
+                                    res.send("SUCCESS : updated '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+                                }
                             }
                         });
                     }
