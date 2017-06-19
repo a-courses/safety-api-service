@@ -61,7 +61,7 @@ router.post("/writeAlertMessages", function (req, res) {
                     var newRecordName = client.record.getRecord(name);
                     console.log("----In create of " + messageBody.notificationType + "-------------: " + name);
                     newRecordName.set({
-                        type: messageBody.notificationType,
+                        notificationType: messageBody.notificationType,
                         id: messageBody.alert.id,
                         url: messageBody.alert.url,
                         fileName: messageBody.alert.fileName,
@@ -89,7 +89,7 @@ router.post("/writeAlertMessages", function (req, res) {
                     var newRecordName = client.record.getRecord(name);
                     console.log("----In create of " + messageBody.notificationType + "-------------:" + name);
                     newRecordName.set({
-                        type: messageBody.notificationType,
+                        notificationType: messageBody.notificationType,
                         id: messageBody.alert.id,
                         caller: {
                             phoneNumber: messageBody.alert.caller.phoneNumber,
@@ -253,7 +253,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                 if (messageBody.notificationType === 'upload' || messageBody.notificationType === 'stream') {
                                     console.log("----In update of " + messageBody.notificationType + "-------------");
                                     existingRecord.set({
-                                        type: messageBody.notificationType,
+                                        notificationType: messageBody.notificationType,
                                         id: messageBody.alert.id,
                                         url: messageBody.alert.url,
                                         fileName: messageBody.alert.fileName,
@@ -278,7 +278,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                 if (messageBody.notificationType === 'call') {
                                     console.log("----In update of " + messageBody.notificationType + "-------------");
                                     existingRecord.set({
-                                        type: messageBody.notificationType,
+                                        notificationType: messageBody.notificationType,
                                         id: messageBody.alert.id,
                                         caller: {
                                             phoneNumber: messageBody.alert.caller.phoneNumber,
@@ -465,7 +465,7 @@ router.post("/updateAlertMessages", function (req, res) {
                         if (messageBody.notificationType === 'upload' || messageBody.notificationType === 'stream') {
                             console.log("----In update of " + messageBody.notificationType + "-------------");
                             existingRecord.set({
-                                type: messageBody.notificationType,
+                                notificationType: messageBody.notificationType,
                                 id: messageBody.alert.id,
                                 url: messageBody.alert.url,
                                 fileName: messageBody.alert.fileName,
@@ -490,7 +490,7 @@ router.post("/updateAlertMessages", function (req, res) {
                         if (messageBody.notificationType === 'call') {
                             console.log("----In update of " + messageBody.notificationType + "-------------");
                             existingRecord.set({
-                                type: messageBody.notificationType,
+                                notificationType: messageBody.notificationType,
                                 id: messageBody.alert.id,
                                 caller: {
                                     phoneNumber: messageBody.alert.caller.phoneNumber,
