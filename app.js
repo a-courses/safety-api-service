@@ -336,9 +336,9 @@ router.post("/writeAlertMessages", function (req, res) {
                                             var singleAlert = {
                                                 id: messageBody.alert.parentAlert[i].id,
                                                 user: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].caller.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].user.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].user.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].user.userName
                                                 },
                                                 location: {
                                                     latitude: messageBody.alert.parentAlert[i].location.latitude,
@@ -372,9 +372,9 @@ router.post("/writeAlertMessages", function (req, res) {
                                             var singleAlert = {
                                                 id: messageBody.alert.parentAlert[i].id,
                                                 user: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].caller.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].user.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].user.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].user.userName
                                                 },
                                                 location: {
                                                     latitude: messageBody.alert.parentAlert[i].location.latitude,
