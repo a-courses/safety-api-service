@@ -274,6 +274,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                         mediaType: messageBody.alert.mediaType,
                                         incidentType: messageBody.alert.incidentType,
                                         time: messageBody.alert.time,
+                                        modifiedTime: messageBody.alert.modifiedTime,
                                         incidentId: messageBody.alert.incidentId
                                     });
                                     console.log("--------[Updated upload/stream alert published to deepstream]--------");
@@ -303,6 +304,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                         mediaType: messageBody.alert.mediaType,
                                         incidentType: messageBody.alert.incidentType,
                                         time: messageBody.alert.time,
+                                        modifiedTime: messageBody.alert.modifiedTime,
                                         incidentId: messageBody.alert.incidentId
                                     });
                                     console.log("--------[updated CALL alert published to deepstream]--------");
@@ -414,6 +416,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                         alert: {
                                             id: messageBody.alert.id,
                                             time: messageBody.alert.time,
+                                            modifiedTime: messageBody.alert.modifiedTime,
                                             name: messageBody.alert.name,
                                             parentAlert: parentAlerts,
                                             mappedAlerts: messageBody.alert.mappedAlerts,
