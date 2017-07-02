@@ -55,7 +55,7 @@ router.post("/writeAlertMessages", function (req, res) {
             console.log("----------------------------------------------------------");
             var client = connectDeepStream();
             var recordList = client.record.getList("safety/alerts");
-            if (messageBody.alert.status.toUpperCase() === 'new'.toUpperCase()) {
+            if (messageBody.alert.status.toUpperCase() === 'new'.toUpperCase() || messageBody.alert.status.toUpperCase() === 'read'.toUpperCase() ) {
                 if (messageBody.notificationType === 'upload' || messageBody.notificationType === 'stream') {
                     var name = 'alerts/' + client.getUid();
                     var newRecordName = client.record.getRecord(name);
