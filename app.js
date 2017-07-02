@@ -278,6 +278,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                     });
                                     console.log("--------[Updated upload/stream alert published to deepstream]--------");
                                     res.send("SUCCESS : updated '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+                                    return;
                                 }
                                 if (messageBody.notificationType === 'call') {
                                     console.log("----In update of " + messageBody.notificationType + "-------------");
@@ -306,6 +307,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                     });
                                     console.log("--------[updated CALL alert published to deepstream]--------");
                                     res.send("SUCCESS : updated '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+                                    return;
                                 }
                                 if (messageBody.notificationType === 'incident') {
                                     console.log("----In update of " + messageBody.notificationType + "-------------")
@@ -424,6 +426,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                     });
                                     console.log("--------[Incident updated to deepstream]--------");
                                     res.send("SUCCESS : updated '" + messageBody.notificationType.toUpperCase() + "' alert published to deepstream");
+                                    return;
                                 }
                             }
                         });
