@@ -78,6 +78,7 @@ router.post("/writeAlertMessages", function (req, res) {
                         mediaType: messageBody.alert.mediaType,
                         incidentType: messageBody.alert.incidentType,
                         time: messageBody.alert.time,
+                        modifiedTime: messageBody.alert.modifiedTime,
                         incidentId: messageBody.alert.incidentId
                     });
                     recordList.addEntry(name);
@@ -109,6 +110,7 @@ router.post("/writeAlertMessages", function (req, res) {
                         mediaType: messageBody.alert.mediaType,
                         incidentType: messageBody.alert.incidentType,
                         time: messageBody.alert.time,
+                        modifiedTime: messageBody.alert.modifiedTime,
                         incidentId: messageBody.alert.incidentId
                     });
                     recordList.addEntry(name);
@@ -125,37 +127,39 @@ router.post("/writeAlertMessages", function (req, res) {
                     var alertUsersList = [];
                     var mappedAlertList = [];
                     for (var i in messageBody.alert.parentAlert) {
-                        if (i.notificationType === 'call') {
+                        console.log("i.notificationType");
+                        console.log(messageBody.alert.parentAlert[i].notificationType);
+                        if (messageBody.alert.parentAlert[i].notificationType === 'call') {
                             var singleAlert = {
-                                alertId: messageBody.alert.parentAlert[i].alertId,
+                                alertId: messageBody.alert.parentAlert[i].alert.id,
                                 alertType: 'call',
                                 caller: {
-                                    phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                    emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                    userName: messageBody.alert.parentAlert[i].caller.userName
+                                    phoneNumber: messageBody.alert.parentAlert[i].alert.caller.phoneNumber,
+                                    emailId: messageBody.alert.parentAlert[i].alert.caller.emailId,
+                                    userName: messageBody.alert.parentAlert[i].alert.caller.userName
                                 },
                                 callee: {
-                                    phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
-                                    emailId: messageBody.alert.parentAlert[i].callee.emailId,
-                                    userName: messageBody.alert.parentAlert[i].callee.userName
+                                    phoneNumber: messageBody.alert.parentAlert[i].alert.callee.phoneNumber,
+                                    emailId: messageBody.alert.parentAlert[i].alert.callee.emailId,
+                                    userName: messageBody.alert.parentAlert[i].alert.callee.userName
                                 },
                                 location: {
-                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                 }
                             };
                         } else {
                             var singleAlert = {
-                                alertId: messageBody.alert.parentAlert[i].alertId,
+                                alertId: messageBody.alert.parentAlert[i].alert.id,
                                 alertType: 'file',
                                 user: {
-                                    phoneNumber: messageBody.alert.parentAlert[i].user.phoneNumber,
-                                    emailId: messageBody.alert.parentAlert[i].user.emailId,
-                                    userName: messageBody.alert.parentAlert[i].user.userName
+                                    phoneNumber: messageBody.alert.parentAlert[i].alert.user.phoneNumber,
+                                    emailId: messageBody.alert.parentAlert[i].alert.user.emailId,
+                                    userName: messageBody.alert.parentAlert[i].alert.user.userName
                                 },
                                 location: {
-                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                 }
                             };
                         }
@@ -164,37 +168,37 @@ router.post("/writeAlertMessages", function (req, res) {
                     }
                     console.log(parentAlerts.length);
                     for (var i in messageBody.alert.mappedAlerts) {
-                        if (i.notificationType === 'call') {
+                        if (messageBody.alert.parentAlert[i].notificationType === 'call') {
                             var singleAlert = {
-                                alertId: messageBody.alert.parentAlert[i].alertId,
+                                alertId: messageBody.alert.parentAlert[i].alert.id,
                                 alertType: 'call',
                                 caller: {
-                                    phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                    emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                    userName: messageBody.alert.parentAlert[i].caller.userName
+                                    phoneNumber: messageBody.alert.parentAlert[i].alert.caller.phoneNumber,
+                                    emailId: messageBody.alert.parentAlert[i].alert.caller.emailId,
+                                    userName: messageBody.alert.parentAlert[i].alert.caller.userName
                                 },
                                 callee: {
-                                    phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
-                                    emailId: messageBody.alert.parentAlert[i].callee.emailId,
-                                    userName: messageBody.alert.parentAlert[i].callee.userName
+                                    phoneNumber: messageBody.alert.parentAlert[i].alert.callee.phoneNumber,
+                                    emailId: messageBody.alert.parentAlert[i].alert.callee.emailId,
+                                    userName: messageBody.alert.parentAlert[i].alert.callee.userName
                                 },
                                 location: {
-                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                 }
                             };
                         } else {
                             var singleAlert = {
-                                alertId: messageBody.alert.parentAlert[i].alertId,
+                                alertId: messageBody.alert.parentAlert[i].alert.id,
                                 alertType: 'file',
                                 user: {
-                                    phoneNumber: messageBody.alert.parentAlert[i].user.phoneNumber,
-                                    emailId: messageBody.alert.parentAlert[i].user.emailId,
-                                    userName: messageBody.alert.parentAlert[i].user.userName
+                                    phoneNumber: messageBody.alert.parentAlert[i].alert.user.phoneNumber,
+                                    emailId: messageBody.alert.parentAlert[i].alert.user.emailId,
+                                    userName: messageBody.alert.parentAlert[i].alert.user.userName
                                 },
                                 location: {
-                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                 }
                             };
                         }
@@ -232,7 +236,7 @@ router.post("/writeAlertMessages", function (req, res) {
                             parentAlert: parentAlerts,
                             mappedAlerts: messageBody.alert.mappedAlerts,
                             createdBy: messageBody.alert.createdBy,
-                            msadescription: messageBody.alert.msadescription,
+                            description: messageBody.alert.description,
                             status: messageBody.alert.status,
                             assignedTo: assignedToList,
                             alertUsers: alertUsersList
@@ -318,35 +322,35 @@ router.post("/writeAlertMessages", function (req, res) {
                                     var alertUsersList = [];
                                     var mappedAlertList = [];
                                     for (var i in messageBody.alert.parentAlert) {
-                                        if (i.notificationType === 'call') {
+                                        if (messageBody.alert.parentAlert[i].notificationType === 'call') {
                                             var singleAlert = {
-                                                id: messageBody.alert.parentAlert[i].id,
+                                                id: messageBody.alert.parentAlert[i].alert.id,
                                                 caller: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].caller.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].alert.caller.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].alert.caller.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].alert.caller.userName
                                                 },
                                                 callee: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].callee.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].callee.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].alert.callee.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].alert.callee.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].alert.callee.userName
                                                 },
                                                 location: {
-                                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                                 }
                                             };
                                         } else {
                                             var singleAlert = {
-                                                id: messageBody.alert.parentAlert[i].id,
+                                                id: messageBody.alert.parentAlert[i].alert.id,
                                                 user: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].user.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].user.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].user.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].alert.user.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].alert.user.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].alert.user.userName
                                                 },
                                                 location: {
-                                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                                 }
                                             };
                                         }
@@ -354,35 +358,35 @@ router.post("/writeAlertMessages", function (req, res) {
                                     }
                                     console.log(parentAlerts.length);
                                     for (var i in messageBody.alert.mappedAlerts) {
-                                        if (i.notificationType === 'call') {
+                                        if (messageBody.alert.parentAlert[i].notificationType === 'call') {
                                             var singleAlert = {
-                                                id: messageBody.alert.parentAlert[i].id,
+                                                id: messageBody.alert.parentAlert[i].alert.id,
                                                 caller: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].caller.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].caller.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].caller.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].alert.caller.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].alert.caller.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].alert.caller.userName
                                                 },
                                                 callee: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].callee.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].callee.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].callee.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].alert.callee.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].alert.callee.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].alert.callee.userName
                                                 },
                                                 location: {
-                                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                                 }
                                             };
                                         } else {
                                             var singleAlert = {
                                                 id: messageBody.alert.parentAlert[i].id,
                                                 user: {
-                                                    phoneNumber: messageBody.alert.parentAlert[i].user.phoneNumber,
-                                                    emailId: messageBody.alert.parentAlert[i].user.emailId,
-                                                    userName: messageBody.alert.parentAlert[i].user.userName
+                                                    phoneNumber: messageBody.alert.parentAlert[i].alert.user.phoneNumber,
+                                                    emailId: messageBody.alert.parentAlert[i].alert.user.emailId,
+                                                    userName: messageBody.alert.parentAlert[i].alert.user.userName
                                                 },
                                                 location: {
-                                                    latitude: messageBody.alert.parentAlert[i].location.latitude,
-                                                    longitude: messageBody.alert.parentAlert[i].location.longitude
+                                                    latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
+                                                    longitude: messageBody.alert.parentAlert[i].alert.location.longitude
                                                 }
                                             };
                                         }
@@ -421,7 +425,7 @@ router.post("/writeAlertMessages", function (req, res) {
                                             parentAlert: parentAlerts,
                                             mappedAlerts: messageBody.alert.mappedAlerts,
                                             createdBy: messageBody.alert.createdBy,
-                                            msadescription: messageBody.alert.msadescription,
+                                            description: messageBody.alert.description,
                                             status: messageBody.alert.status,
                                             assignedTo: assignedToList,
                                             alertUsers: alertUsersList
@@ -604,7 +608,7 @@ router.post("/updateAlertMessages", function (req, res) {
                          parentAlert: parentAlerts,
                          mappedAlerts: messageBody.alert.mappedAlerts,
                          createdBy: messageBody.alert.createdBy,
-                         msadescription: messageBody.alert.msadescription,
+                         description: messageBody.alert.description,
                          status: messageBody.alert.status,
                          assignedTo: assignedToList,
                          alertUsers: alertUsersList
