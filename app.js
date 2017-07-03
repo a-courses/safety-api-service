@@ -232,6 +232,7 @@ router.post("/writeAlertMessages", function (req, res) {
                         alert: {
                             id: messageBody.alert.id,
                             time: messageBody.alert.time,
+                            modifiedTime: messageBody.alert.modifiedTime,
                             name: messageBody.alert.name,
                             parentAlert: parentAlerts,
                             mappedAlerts: messageBody.alert.mappedAlerts,
