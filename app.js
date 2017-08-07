@@ -146,7 +146,8 @@ router.post("/writeAlertMessages", function (req, res) {
                                 location: {
                                     latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
                                     longitude: messageBody.alert.parentAlert[i].alert.location.longitude
-                                }
+                                },
+                                incidentType: messageBody.alert.parentAlert[i].incidentType
                             };
                         } else {
                             var singleAlert = {
@@ -160,7 +161,8 @@ router.post("/writeAlertMessages", function (req, res) {
                                 location: {
                                     latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
                                     longitude: messageBody.alert.parentAlert[i].alert.location.longitude
-                                }
+                                },
+                                incidentType: messageBody.alert.parentAlert[i].incidentType
                             };
                         }
 
@@ -185,7 +187,8 @@ router.post("/writeAlertMessages", function (req, res) {
                                 location: {
                                     latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
                                     longitude: messageBody.alert.parentAlert[i].alert.location.longitude
-                                }
+                                },
+                                incidentType: messageBody.alert.parentAlert[i].incidentType
                             };
                         } else {
                             var singleAlert = {
@@ -199,7 +202,8 @@ router.post("/writeAlertMessages", function (req, res) {
                                 location: {
                                     latitude: messageBody.alert.parentAlert[i].alert.location.latitude,
                                     longitude: messageBody.alert.parentAlert[i].alert.location.longitude
-                                }
+                                },
+                                incidentType: messageBody.alert.parentAlert[i].incidentType
                             };
                         }
                         mappedAlertList.push(singleAlert);
